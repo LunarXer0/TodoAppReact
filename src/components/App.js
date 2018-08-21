@@ -70,17 +70,10 @@ class App extends React.Component {
                 completeTask={this.completeTask}
               />
             ))}
-
-          {/* {Object.keys(this.state.tasks).map(key => (
-            <Task
-              key={key}
-              index={key}
-              details={this.state.tasks[key]}
-              deleteTask={this.deleteTask}
-              completeTask={this.completeTask}
-            />
-          ))} */}
         </ul>
+        <div className="col-md-6 mx-auto mt-5">
+          <button className="btn btn-sm btn-dark">Show Completed Tasks</button>
+        </div>
       </div>
     );
   }
