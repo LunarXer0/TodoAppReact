@@ -5,7 +5,7 @@ class Input extends Component {
 
   createTask = event => {
     event.preventDefault();
-    const task = { name: this.nameRef.value.value };
+    const task = { name: this.nameRef.value.value, status: "unfinished" };
     this.props.addTask(task);
     event.currentTarget.reset();
   };

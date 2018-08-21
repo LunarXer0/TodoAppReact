@@ -6,10 +6,13 @@ class Task extends Component {
       <li className="list-group-item d-flex justify-content-between align-items-center">
         {this.props.details.name}
         <span className="pull-right button-group">
-          <button className="btn btn-sm btn-default">
-            Edit
+          <button
+            className="btn btn-sm btn-default"
+            onClick={() => this.props.completeTask(this.props.index)}
+          >
+            Done
             <span role="img" aria-label="pencil">
-              ✏️
+              ✔️
             </span>
           </button>
           &nbsp;

@@ -23,8 +23,18 @@ class App extends React.Component {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
-  editTask = (index, updatedTask) => {
-    console.log("editing task");
+  completeTask = index => {
+    console.log("completing task..");
+    const tasks = { ...this.state.tasks };
+    tasks[index].status = "finished";
+    this.setState({ tasks });
+    const tasksInStorage = JSON.parse(localStorage.getItem("tasks"));
+    if (tasksInStorage) {
+      tasksInStorage[index].status = "finished";
+      localStorage.setItem("tasks", JSON.stringify(tasksInStorage));
+    } else {
+      localStorage.setItem("tasks", JSON.stringify(this.state.tasks));
+    }
   };
 
   deleteTask = index => {
@@ -49,15 +59,27 @@ class App extends React.Component {
           addTask={this.addTask}
         />
         <ul className="col-md-6 mx-auto mt-5 list-group list-group-flush">
-          {Object.keys(this.state.tasks).map(key => (
+          {Object.keys(this.state.tasks)
+            .filter(key => this.state.tasks[key].status === "unfinished")
+            .map(key => (
+              <Task
+                key={key}
+                index={key}
+                details={this.state.tasks[key]}
+                deleteTask={this.deleteTask}
+                completeTask={this.completeTask}
+              />
+            ))}
+
+          {/* {Object.keys(this.state.tasks).map(key => (
             <Task
               key={key}
               index={key}
               details={this.state.tasks[key]}
               deleteTask={this.deleteTask}
-              editTask={this.editTask}
+              completeTask={this.completeTask}
             />
-          ))}
+          ))} */}
         </ul>
       </div>
     );
