@@ -57,6 +57,19 @@ class App extends React.Component {
   };
 
   generateList = () => {
+    const showAll = this.state.visibilityFilter === "all";
+    if (showAll) {
+      const list = Object.keys(this.state.tasks).map(key => (
+        <Task
+          key={key}
+          index={key}
+          details={this.state.tasks[key]}
+          deleteTask={this.deleteTask}
+          completeTask={this.completeTask}
+        />
+      ));
+      return list;
+    }
     const list = Object.keys(this.state.tasks)
       .filter(
         key => this.state.tasks[key].status === this.state.visibilityFilter
