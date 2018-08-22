@@ -107,10 +107,14 @@ class App extends React.Component {
           tasks={this.state.tasks}
           addTask={this.addTask}
         />
-        <div className="col-md-6 mx-auto btn-toolbar">
-          <CompletedTasksBtn showCompletedTasks={this.showCompletedTasks} />
-          <UnfinishedTasksBtn showUnfinishedTasks={this.showUnfinishedTasks} />
-          <ShowAllTasksBtn showAllTasks={this.showAllTasks} />
+        <div className="col-md-6 mx-auto p-0">
+          <div className="btn-group col-md-12 p-0" role="group">
+            <CompletedTasksBtn showCompletedTasks={this.showCompletedTasks} />
+            <UnfinishedTasksBtn
+              showUnfinishedTasks={this.showUnfinishedTasks}
+            />
+            <ShowAllTasksBtn showAllTasks={this.showAllTasks} />
+          </div>
         </div>
         <div className="col-md-6 mx-auto mt-5">
           <span>

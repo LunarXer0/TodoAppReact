@@ -2,7 +2,7 @@ import React from "react";
 
 const CompletedTasksBtn = props => (
   <button
-    className="btn btn-sm mt-1 ml-1 btn-primary"
+    className="btn btn-sm btn-block mt-1 ml-1 btn-primary"
     onClick={() => props.showCompletedTasks()}
   >
     Show Completed Tasks
@@ -11,7 +11,7 @@ const CompletedTasksBtn = props => (
 
 const UnfinishedTasksBtn = props => (
   <button
-    className="btn btn-sm  mt-1 ml-1 btn-danger"
+    className="btn btn-block mt-1 ml-1 btn-danger"
     onClick={() => props.showUnfinishedTasks()}
   >
     Show Unfinished Tasks
@@ -20,7 +20,7 @@ const UnfinishedTasksBtn = props => (
 
 const ShowAllTasksBtn = props => (
   <button
-    className="btn btn-sm mt-1 ml-1 btn-dark"
+    className="btn btn-block mt-1 ml-1 btn-dark"
     onClick={() => props.showAllTasks()}
   >
     Show All Tasks
