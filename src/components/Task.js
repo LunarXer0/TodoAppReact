@@ -1,36 +1,35 @@
 import React, { Component } from "react";
 
 class Task extends Component {
+  handleChange = event => {
+    const updatedTask = {
+      ...this.props.details,
+      [event.currentTarget.name]: event.currentTarget.value
+    };
+    this.props.updateTask(this.props.index, updatedTask);
+    event.preventDefault();
+  };
   render() {
-    const checkCompleted = this.props.details.status === "finished";
-    const setDisplay = checkCompleted ? "none" : "";
     return (
-      <li className="list-group-item d-flex justify-content-between align-items-center">
-        {this.props.details.name}
-        <span className="pull-right button-group">
-          <button
-            style={{
-              display: setDisplay
-            }}
-            className="btn btn-sm btn-default"
-            onClick={() => this.props.completeTask(this.props.index)}
-          >
-            Done
-            <span role="img" aria-label="pencil">
-              ✔️
-            </span>
+      <div className="input-group mt-1">
+        <div className="input-group-prepend">
+          <div className="input-group-text">
+            <input type="checkbox" />
+          </div>
+        </div>
+        <input
+          type="text"
+          className="form-control"
+          name="name"
+          value={this.props.details.name}
+          onChange={this.handleChange}
+        />
+        <div className="input-group-append">
+          <button className="btn btn-outline-danger" type="button">
+            🗑
           </button>
-          <button
-            className="btn btn-sm btn-default"
-            onClick={() => this.props.deleteTask(this.props.index)}
-          >
-            Delete
-            <span role="img" aria-label="thrash">
-              🗑️
-            </span>
-          </button>
-        </span>
-      </li>
+        </div>
+      </div>
     );
   }
 }

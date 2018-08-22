@@ -43,6 +43,12 @@ class App extends React.Component {
     }
   };
 
+  updateTask = (index, updatedTask) => {
+    const tasks = { ...this.state.tasks };
+    tasks[index] = updatedTask;
+    this.setState({ tasks });
+  };
+
   deleteTask = index => {
     const tasks = { ...this.state.tasks };
     delete tasks[index];
@@ -66,6 +72,7 @@ class App extends React.Component {
           details={this.state.tasks[key]}
           deleteTask={this.deleteTask}
           completeTask={this.completeTask}
+          updateTask={this.updateTask}
         />
       ));
       return list;
@@ -81,6 +88,7 @@ class App extends React.Component {
           details={this.state.tasks[key]}
           deleteTask={this.deleteTask}
           completeTask={this.completeTask}
+          updateTask={this.updateTask}
         />
       ));
     return list;
@@ -116,7 +124,7 @@ class App extends React.Component {
             <ShowAllTasksBtn showAllTasks={this.showAllTasks} />
           </div>
         </div>
-        <div className="col-md-6 mx-auto mt-5">
+        <div className="col-md-6 p-0 mx-auto mt-5">
           <span>
             Showing:{" "}
             {this.state.visibilityFilter.charAt(0).toUpperCase() +
@@ -124,7 +132,7 @@ class App extends React.Component {
               " " +
               "Tasks"}
           </span>
-          <ul className="list-group list-group-flush">{taskList}</ul>
+          <div className="col-md-12 p-0 mx-auto">{taskList}</div>
         </div>
       </div>
     );
