@@ -1,11 +1,17 @@
 import React from "react";
 import Header from "./Header";
 import Task from "./Task";
+import {
+  CompletedTasksBtn,
+  UnfinishedTasksBtn,
+  ShowAllTasksBtn
+} from "./DisplayTasksBtns";
 import "../css/App.css";
 
 class App extends React.Component {
   state = {
-    tasks: {}
+    tasks: {},
+    visibilityFilter: "unfinished"
   };
 
   componentDidMount() {
@@ -50,7 +56,37 @@ class App extends React.Component {
     }
   };
 
+  generateList = () => {
+    const list = Object.keys(this.state.tasks)
+      .filter(
+        key => this.state.tasks[key].status === this.state.visibilityFilter
+      )
+      .map(key => (
+        <Task
+          key={key}
+          index={key}
+          details={this.state.tasks[key]}
+          deleteTask={this.deleteTask}
+          completeTask={this.completeTask}
+        />
+      ));
+    return list;
+  };
+
+  showCompletedTasks = () => {
+    this.setState({ visibilityFilter: "finished" });
+  };
+
+  showUnfinishedTasks = () => {
+    this.setState({ visibilityFilter: "unfinished" });
+  };
+
+  showAllTasks = () => {
+    this.setState({ visibilityFilter: "all" });
+  };
+
   render() {
+    let taskList = this.generateList();
     return (
       <div className="container">
         <Header
@@ -58,21 +94,20 @@ class App extends React.Component {
           tasks={this.state.tasks}
           addTask={this.addTask}
         />
-        <ul className="col-md-6 mx-auto mt-5 list-group list-group-flush">
-          {Object.keys(this.state.tasks)
-            .filter(key => this.state.tasks[key].status === "unfinished")
-            .map(key => (
-              <Task
-                key={key}
-                index={key}
-                details={this.state.tasks[key]}
-                deleteTask={this.deleteTask}
-                completeTask={this.completeTask}
-              />
-            ))}
-        </ul>
+        <div className="col-md-6 mx-auto btn-toolbar">
+          <CompletedTasksBtn showCompletedTasks={this.showCompletedTasks} />
+          <UnfinishedTasksBtn showUnfinishedTasks={this.showUnfinishedTasks} />
+          <ShowAllTasksBtn showAllTasks={this.showAllTasks} />
+        </div>
         <div className="col-md-6 mx-auto mt-5">
-          <button className="btn btn-sm btn-dark">Show Completed Tasks</button>
+          <span>
+            Showing:{" "}
+            {this.state.visibilityFilter.charAt(0).toUpperCase() +
+              this.state.visibilityFilter.substring(1) +
+              " " +
+              "Tasks"}
+          </span>
+          <ul className="list-group list-group-flush">{taskList}</ul>
         </div>
       </div>
     );
